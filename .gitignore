@@ -1,0 +1,8 @@
+/.idea
+
+
+#OpenWrt 忽略文件(bin:生成文件夹; build_dir:编译中间文件; log:编译输出)
+/bin
+/build_dir
+/staging_dir
+/log
