@@ -1,13 +1,22 @@
 #CLion文件夹
 /.idea
+./.idea
 
 #CMake 中间文件
 /cmake-build-debug
+./cmake-build-debug
+./CMakeLists.txt
 
 #OpenWrt 忽略文件(bin:生成文件夹; build_dir:编译中间文件; log:编译输出)
 /dl
+./dl
 /feeds
+./feeds
 /bin
+./bin
 /build_dir
+./build_dir
 /staging_dir
+./staging_dir
 /log
+./log
