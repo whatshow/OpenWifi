@@ -1,6 +1,8 @@
 #CLion文件夹
 /.idea
 
+#CMake 中间文件
+/cmake-build-debug
 
 #OpenWrt 忽略文件(bin:生成文件夹; build_dir:编译中间文件; log:编译输出)
 /dl
