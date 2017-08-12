@@ -1,6 +1,9 @@
 # OpenWifi
 An Open Source Wifi Provider
 
+# 初始化操作
+* 执行./scripts/feeds update, ./scripts/feeds/install -a
+
 # 支持硬件
 TP-Link WR-720N
 
