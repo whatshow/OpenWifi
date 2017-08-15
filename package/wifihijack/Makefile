@@ -26,7 +26,7 @@ define Build/Prepare
     $(CP) ./src/* $(PKG_BUILD_DIR)/
 endef
 
-define Package/bridge/install
+define Package/wifihijack/install
         $(INSTALL_DIR) $(1)/usr/sbin
         $(INSTALL_BIN) $(PKG_BUILD_DIR)/wifihijack $(1)/usr/sbin/
 endef
