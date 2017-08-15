@@ -17,7 +17,7 @@ define Package/wifihijack
 endef
 
 define Package/wifihijack/description
- hijack wifi.
+    hijack wifi.
 endef
 
 define Build/Prepare
