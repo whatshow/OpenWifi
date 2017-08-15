@@ -27,8 +27,8 @@ define Build/Prepare
 endef
 
 define Package/wifihijack/install
-        $(INSTALL_DIR) $(1)/usr/sbin
-        $(INSTALL_BIN) $(PKG_BUILD_DIR)/wifihijack $(1)/usr/sbin/
+    $(INSTALL_DIR) $(1)/usr/sbin
+    $(INSTALL_BIN) $(PKG_BUILD_DIR)/wifihijack $(1)/usr/sbin/
 endef
 
-    $(eval $(call BuildPackage,wifihijack))
+$(eval $(call BuildPackage,wifihijack))
