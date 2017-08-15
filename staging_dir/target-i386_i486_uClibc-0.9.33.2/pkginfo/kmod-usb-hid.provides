@@ -1,0 +1,3 @@
+evdev.ko
+hid-generic.ko
+usbhid.ko
