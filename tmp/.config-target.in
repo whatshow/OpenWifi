@@ -1,0 +1,787 @@
+choice
+	prompt "Target System"
+	default TARGET_ar71xx
+	reset if !DEVEL
+	
+config TARGET_x86
+	bool "x86"
+	select HAS_SUBTARGETS
+
+
+endchoice
+
+choice
+	prompt "Subtarget" if HAS_SUBTARGETS
+
+config TARGET_x86_generic
+	bool "Generic"
+	select LINUX_3_18
+	depends on TARGET_x86
+	select DISPLAY_SUPPORT
+	select USES_EXT4
+	select PCI_SUPPORT
+	select PCI_SUPPORT
+	select PCIE_SUPPORT
+	select PCMCIA_SUPPORT
+	select RTC_SUPPORT
+	select USES_SQUASHFS
+	select USES_TARGZ
+	select USB_SUPPORT
+	select i386
+	help
+	  Build firmware images for x86 based boards
+	  (e.g : Soekris, ...)
+
+
+config TARGET_x86_xen_domu
+	bool "Xen Paravirt Guest"
+	select LINUX_3_18
+	depends on TARGET_x86
+	select DISPLAY_SUPPORT
+	select USES_EXT4
+	select PCI_SUPPORT
+	select RTC_SUPPORT
+	select USES_TARGZ
+	select USB_SUPPORT
+	select i386
+
+
+config TARGET_x86_ep80579
+	bool "Intel EP80579"
+	select LINUX_3_3
+	depends on TARGET_x86
+	depends on BROKEN
+	select USES_EXT4
+	select PCMCIA_SUPPORT
+	select USES_SQUASHFS
+	select USES_TARGZ
+	select i386
+	help
+	  Build firmware images for Intel EP80579 based boards
+	  (e.g : ADI Engineering Ocracoke Island)
+
+
+config TARGET_x86_geode
+	bool "AMD Geode based systems"
+	select LINUX_3_18
+	depends on TARGET_x86
+	select DISPLAY_SUPPORT
+	select USES_EXT4
+	select GPIO_SUPPORT
+	select PCI_SUPPORT
+	select RTC_SUPPORT
+	select USES_SQUASHFS
+	select USB_SUPPORT
+	select i386
+	help
+	  Build firmware images for AMD Geode GX/LX based systems (net5501, alix, geos)
+
+
+config TARGET_x86_kvm_guest
+	bool "KVM Guest"
+	select LINUX_3_18
+	depends on TARGET_x86
+	select DISPLAY_SUPPORT
+	select USES_EXT4
+	select PCI_SUPPORT
+	select PCI_SUPPORT
+	select PCIE_SUPPORT
+	select RTC_SUPPORT
+	select USB_SUPPORT
+	select i386
+
+
+config TARGET_x86_rdc
+	bool "RDC R-321x"
+	select LINUX_3_18
+	depends on TARGET_x86
+	depends on BROKEN
+	select DISPLAY_SUPPORT
+	select GPIO_SUPPORT
+	select PCI_SUPPORT
+	select PCMCIA_SUPPORT
+	select RTC_SUPPORT
+	select USES_SQUASHFS
+	select USB_SUPPORT
+	select i386
+	help
+	  Build firmware images for RDC321x based routers
+	  (e.g. Airlink101 AR525W, Linksys WRT54GR, Sitecom WL-153)
+
+
+config TARGET_x86_64
+	bool "x86_64"
+	select LINUX_3_18
+	depends on TARGET_x86
+	select DISPLAY_SUPPORT
+	select USES_EXT4
+	select PCI_SUPPORT
+	select PCI_SUPPORT
+	select PCIE_SUPPORT
+	select PCMCIA_SUPPORT
+	select RTC_SUPPORT
+	select USES_SQUASHFS
+	select USES_TARGZ
+	select USB_SUPPORT
+	select x86_64
+	help
+	  Build images for 64 bit systems including virtualized guests.
+
+
+endchoice
+
+choice
+	prompt "Target Profile"
+
+config TARGET_x86_generic_Generic
+	bool "Generic"
+	depends on TARGET_x86_generic
+	
+
+	select DEFAULT_base-files
+	select DEFAULT_busybox
+	select DEFAULT_dnsmasq
+	select DEFAULT_dropbear
+	select DEFAULT_firewall
+	select DEFAULT_fstools
+	select DEFAULT_ip6tables
+	select DEFAULT_iptables
+	select DEFAULT_kmod-3c59x
+	select DEFAULT_kmod-8139too
+	select DEFAULT_kmod-e100
+	select DEFAULT_kmod-e1000
+	select DEFAULT_kmod-natsemi
+	select DEFAULT_kmod-ne2k-pci
+	select DEFAULT_kmod-nf-nathelper
+	select DEFAULT_kmod-pcnet32
+	select DEFAULT_kmod-r8169
+	select DEFAULT_kmod-sis900
+	select DEFAULT_kmod-tg3
+	select DEFAULT_kmod-via-rhine
+	select DEFAULT_kmod-via-velocity
+	select DEFAULT_libc
+	select DEFAULT_libgcc
+	select DEFAULT_mtd
+	select DEFAULT_netifd
+	select DEFAULT_odhcp6c
+	select DEFAULT_odhcpd
+	select DEFAULT_opkg
+	select DEFAULT_ppp
+	select DEFAULT_ppp-mod-pppoe
+	select DEFAULT_uci
+	help
+	  Generic Profile
+
+config TARGET_x86_xen_domu_Default
+	bool "Default"
+	depends on TARGET_x86_xen_domu
+
+	select DEFAULT_base-files
+	select DEFAULT_busybox
+	select DEFAULT_dnsmasq
+	select DEFAULT_dropbear
+	select DEFAULT_firewall
+	select DEFAULT_fstools
+	select DEFAULT_ip6tables
+	select DEFAULT_iptables
+	select DEFAULT_kmod-nf-nathelper
+	select DEFAULT_kmod-xen-evtchn
+	select DEFAULT_kmod-xen-fs
+	select DEFAULT_kmod-xen-kbddev
+	select DEFAULT_kmod-xen-netdev
+	select DEFAULT_libc
+	select DEFAULT_libgcc
+	select DEFAULT_mtd
+	select DEFAULT_netifd
+	select DEFAULT_odhcp6c
+	select DEFAULT_odhcpd
+	select DEFAULT_opkg
+	select DEFAULT_ppp
+	select DEFAULT_ppp-mod-pppoe
+	select DEFAULT_uci
+
+config TARGET_x86_ep80579_Default
+	bool "Default"
+	depends on TARGET_x86_ep80579
+
+	select DEFAULT_base-files
+	select DEFAULT_busybox
+	select DEFAULT_dnsmasq
+	select DEFAULT_dropbear
+	select DEFAULT_firewall
+	select DEFAULT_fstools
+	select DEFAULT_ip6tables
+	select DEFAULT_iptables
+	select DEFAULT_kmod-ep80579-can
+	select DEFAULT_kmod-ep80579-eth
+	select DEFAULT_kmod-ep80579-misc
+	select DEFAULT_kmod-nf-nathelper
+	select DEFAULT_kmod-usb-core
+	select DEFAULT_kmod-usb-hid
+	select DEFAULT_kmod-usb-uhci
+	select DEFAULT_kmod-usb2
+	select DEFAULT_libc
+	select DEFAULT_libgcc
+	select DEFAULT_mtd
+	select DEFAULT_netifd
+	select DEFAULT_odhcp6c
+	select DEFAULT_odhcpd
+	select DEFAULT_opkg
+	select DEFAULT_ppp
+	select DEFAULT_ppp-mod-pppoe
+	select DEFAULT_uci
+
+config TARGET_x86_geode_Default
+	bool "Default"
+	depends on TARGET_x86_geode
+
+	select DEFAULT_base-files
+	select DEFAULT_busybox
+	select DEFAULT_dnsmasq
+	select DEFAULT_dropbear
+	select DEFAULT_firewall
+	select DEFAULT_fstools
+	select DEFAULT_hwclock
+	select DEFAULT_ip6tables
+	select DEFAULT_iptables
+	select DEFAULT_iwinfo
+	select DEFAULT_kmod-ath5k
+	select DEFAULT_kmod-ath9k
+	select DEFAULT_kmod-button-hotplug
+	select DEFAULT_kmod-crypto-aes
+	select DEFAULT_kmod-crypto-cbc
+	select DEFAULT_kmod-crypto-hw-geode
+	select DEFAULT_kmod-crypto-ocf
+	select DEFAULT_kmod-ledtrig-gpio
+	select DEFAULT_kmod-ledtrig-heartbeat
+	select DEFAULT_kmod-ledtrig-netdev
+	select DEFAULT_kmod-nf-nathelper
+	select DEFAULT_libc
+	select DEFAULT_libgcc
+	select DEFAULT_mtd
+	select DEFAULT_netifd
+	select DEFAULT_odhcp6c
+	select DEFAULT_odhcpd
+	select DEFAULT_opkg
+	select DEFAULT_ppp
+	select DEFAULT_ppp-mod-pppoe
+	select DEFAULT_uci
+	select DEFAULT_wpad-mini
+
+config TARGET_x86_kvm_guest_Default
+	bool "Default"
+	depends on TARGET_x86_kvm_guest
+
+	select DEFAULT_base-files
+	select DEFAULT_busybox
+	select DEFAULT_dnsmasq
+	select DEFAULT_dropbear
+	select DEFAULT_firewall
+	select DEFAULT_fstools
+	select DEFAULT_ip6tables
+	select DEFAULT_iptables
+	select DEFAULT_kmod-nf-nathelper
+	select DEFAULT_kmod-virtio-balloon
+	select DEFAULT_kmod-virtio-net
+	select DEFAULT_kmod-virtio-random
+	select DEFAULT_libc
+	select DEFAULT_libgcc
+	select DEFAULT_mtd
+	select DEFAULT_netifd
+	select DEFAULT_odhcp6c
+	select DEFAULT_odhcpd
+	select DEFAULT_opkg
+	select DEFAULT_ppp
+	select DEFAULT_ppp-mod-pppoe
+	select DEFAULT_uci
+
+config TARGET_x86_rdc_ar525w
+	bool "Airlink AR525W"
+	depends on TARGET_x86_rdc
+	
+
+	select DEFAULT_base-files
+	select DEFAULT_busybox
+	select DEFAULT_dnsmasq
+	select DEFAULT_dropbear
+	select DEFAULT_firewall
+	select DEFAULT_fstools
+	select DEFAULT_ip6tables
+	select DEFAULT_iptables
+	select DEFAULT_iwinfo
+	select DEFAULT_kmod-8021q
+	select DEFAULT_kmod-bridge
+	select DEFAULT_kmod-button-hotplug
+	select DEFAULT_kmod-input-core
+	select DEFAULT_kmod-input-polldev
+	select DEFAULT_kmod-libphy
+	select DEFAULT_kmod-llc
+	select DEFAULT_kmod-nf-nathelper
+	select DEFAULT_kmod-r6040
+	select DEFAULT_kmod-rdc321x-wdt
+	select DEFAULT_kmod-rt61-pci
+	select DEFAULT_kmod-stp
+	select DEFAULT_kmod-switch-ip17xx
+	select DEFAULT_libc
+	select DEFAULT_libgcc
+	select DEFAULT_mtd
+	select DEFAULT_netifd
+	select DEFAULT_odhcp6c
+	select DEFAULT_odhcpd
+	select DEFAULT_opkg
+	select DEFAULT_ppp
+	select DEFAULT_ppp-mod-pppoe
+	select DEFAULT_swconfig
+	select DEFAULT_uci
+	select DEFAULT_wpad-mini
+
+config TARGET_x86_rdc_bifferboard
+	bool "Bifferboard"
+	depends on TARGET_x86_rdc
+	
+
+	select DEFAULT_base-files
+	select DEFAULT_busybox
+	select DEFAULT_dnsmasq
+	select DEFAULT_dropbear
+	select DEFAULT_firewall
+	select DEFAULT_fstools
+	select DEFAULT_ip6tables
+	select DEFAULT_iptables
+	select DEFAULT_iwinfo
+	select DEFAULT_kmod-8021q
+	select DEFAULT_kmod-bridge
+	select DEFAULT_kmod-button-hotplug
+	select DEFAULT_kmod-fs-ext4
+	select DEFAULT_kmod-input-core
+	select DEFAULT_kmod-input-polldev
+	select DEFAULT_kmod-libphy
+	select DEFAULT_kmod-llc
+	select DEFAULT_kmod-nf-nathelper
+	select DEFAULT_kmod-r6040
+	select DEFAULT_kmod-rdc321x-wdt
+	select DEFAULT_kmod-scsi-core
+	select DEFAULT_kmod-stp
+	select DEFAULT_kmod-usb-core
+	select DEFAULT_kmod-usb-ohci
+	select DEFAULT_kmod-usb-storage
+	select DEFAULT_kmod-usb2
+	select DEFAULT_libc
+	select DEFAULT_libgcc
+	select DEFAULT_mtd
+	select DEFAULT_netifd
+	select DEFAULT_odhcp6c
+	select DEFAULT_odhcpd
+	select DEFAULT_opkg
+	select DEFAULT_ppp
+	select DEFAULT_ppp-mod-pppoe
+	select DEFAULT_uci
+	select DEFAULT_wpad-mini
+
+config TARGET_x86_rdc_r8610
+	bool "RDC R8610 Evaluation Board"
+	depends on TARGET_x86_rdc
+	
+
+	select DEFAULT_base-files
+	select DEFAULT_busybox
+	select DEFAULT_dnsmasq
+	select DEFAULT_dropbear
+	select DEFAULT_firewall
+	select DEFAULT_fstools
+	select DEFAULT_ip6tables
+	select DEFAULT_iptables
+	select DEFAULT_iwinfo
+	select DEFAULT_kmod-8021q
+	select DEFAULT_kmod-bridge
+	select DEFAULT_kmod-button-hotplug
+	select DEFAULT_kmod-fs-ext4
+	select DEFAULT_kmod-hwmon-core
+	select DEFAULT_kmod-hwmon-w83627hf
+	select DEFAULT_kmod-ide-core
+	select DEFAULT_kmod-ide-it821x
+	select DEFAULT_kmod-input-core
+	select DEFAULT_kmod-input-polldev
+	select DEFAULT_kmod-libphy
+	select DEFAULT_kmod-llc
+	select DEFAULT_kmod-nf-nathelper
+	select DEFAULT_kmod-r6040
+	select DEFAULT_kmod-rdc321x-wdt
+	select DEFAULT_kmod-rtc-core
+	select DEFAULT_kmod-rtc-m48t86
+	select DEFAULT_kmod-stp
+	select DEFAULT_kmod-usb-core
+	select DEFAULT_kmod-usb-ohci
+	select DEFAULT_kmod-usb2
+	select DEFAULT_libc
+	select DEFAULT_libgcc
+	select DEFAULT_mtd
+	select DEFAULT_netifd
+	select DEFAULT_odhcp6c
+	select DEFAULT_odhcpd
+	select DEFAULT_opkg
+	select DEFAULT_ppp
+	select DEFAULT_ppp-mod-pppoe
+	select DEFAULT_uci
+	select DEFAULT_wpad-mini
+
+config TARGET_x86_rdc_sitecom
+	bool "Devices from Sitecom (WL-153, DC-230)"
+	depends on TARGET_x86_rdc
+	
+
+	select DEFAULT_base-files
+	select DEFAULT_busybox
+	select DEFAULT_dnsmasq
+	select DEFAULT_dropbear
+	select DEFAULT_firewall
+	select DEFAULT_fstools
+	select DEFAULT_ip6tables
+	select DEFAULT_iptables
+	select DEFAULT_iwinfo
+	select DEFAULT_kmod-8021q
+	select DEFAULT_kmod-bridge
+	select DEFAULT_kmod-button-hotplug
+	select DEFAULT_kmod-input-core
+	select DEFAULT_kmod-input-polldev
+	select DEFAULT_kmod-libphy
+	select DEFAULT_kmod-llc
+	select DEFAULT_kmod-nf-nathelper
+	select DEFAULT_kmod-r6040
+	select DEFAULT_kmod-rdc321x-wdt
+	select DEFAULT_kmod-rt61-pci
+	select DEFAULT_kmod-stp
+	select DEFAULT_kmod-usb-core
+	select DEFAULT_kmod-usb-ohci
+	select DEFAULT_kmod-usb2
+	select DEFAULT_libc
+	select DEFAULT_libgcc
+	select DEFAULT_mtd
+	select DEFAULT_netifd
+	select DEFAULT_odhcp6c
+	select DEFAULT_odhcpd
+	select DEFAULT_opkg
+	select DEFAULT_ppp
+	select DEFAULT_ppp-mod-pppoe
+	select DEFAULT_uci
+	select DEFAULT_wpad-mini
+
+config TARGET_x86_64_Default
+	bool "Default"
+	depends on TARGET_x86_64
+
+	select DEFAULT_base-files
+	select DEFAULT_busybox
+	select DEFAULT_dnsmasq
+	select DEFAULT_dropbear
+	select DEFAULT_firewall
+	select DEFAULT_fstools
+	select DEFAULT_ip6tables
+	select DEFAULT_iptables
+	select DEFAULT_kmod-e1000
+	select DEFAULT_kmod-e1000e
+	select DEFAULT_kmod-nf-nathelper
+	select DEFAULT_kmod-r8169
+	select DEFAULT_libc
+	select DEFAULT_libgcc
+	select DEFAULT_mtd
+	select DEFAULT_netifd
+	select DEFAULT_odhcp6c
+	select DEFAULT_odhcpd
+	select DEFAULT_opkg
+	select DEFAULT_ppp
+	select DEFAULT_ppp-mod-pppoe
+	select DEFAULT_uci
+
+endchoice
+
+config HAS_SUBTARGETS
+	bool
+
+config TARGET_BOARD
+	string
+
+		default "x86" if TARGET_x86
+config TARGET_ARCH_PACKAGES
+	string
+	
+		default "x86" if TARGET_x86_generic
+		default "x86" if TARGET_x86_xen_domu
+		default "x86" if TARGET_x86_ep80579
+		default "x86" if TARGET_x86_geode
+		default "x86" if TARGET_x86_kvm_guest
+		default "x86" if TARGET_x86_rdc
+		default "x86_64" if TARGET_x86_64
+
+config DEFAULT_TARGET_OPTIMIZATION
+	string
+	default "-Os -pipe -march=i486" if TARGET_x86_generic
+	default "-Os -pipe -march=i486" if TARGET_x86_xen_domu
+	default "-Os -pipe -march=i486" if TARGET_x86_ep80579
+	default "-Os -pipe -march=geode -mmmx -m3dnow" if TARGET_x86_geode
+	default "-Os -pipe -march=i486" if TARGET_x86_kvm_guest
+	default "-Os -pipe -march=i486" if TARGET_x86_rdc
+	default "-Os -pipe" if TARGET_x86_64
+	default "-Os -pipe -funit-at-a-time"
+
+config CPU_TYPE
+	string
+	default "i486" if TARGET_x86_generic
+	default "i486" if TARGET_x86_xen_domu
+	default "i486" if TARGET_x86_ep80579
+	default "geode" if TARGET_x86_geode
+	default "i486" if TARGET_x86_kvm_guest
+	default "i486" if TARGET_x86_rdc
+	default " " if TARGET_x86_64
+	default ""
+
+config LINUX_3_18
+	bool
+
+
+config LINUX_3_3
+	bool
+
+	config DEFAULT_base-files
+		bool
+
+	config DEFAULT_busybox
+		bool
+
+	config DEFAULT_dnsmasq
+		bool
+
+	config DEFAULT_dropbear
+		bool
+
+	config DEFAULT_firewall
+		bool
+
+	config DEFAULT_fstools
+		bool
+
+	config DEFAULT_hwclock
+		bool
+
+	config DEFAULT_ip6tables
+		bool
+
+	config DEFAULT_iptables
+		bool
+
+	config DEFAULT_iwinfo
+		bool
+
+	config DEFAULT_kmod-3c59x
+		bool
+
+	config DEFAULT_kmod-8021q
+		bool
+
+	config DEFAULT_kmod-8139too
+		bool
+
+	config DEFAULT_kmod-ath5k
+		bool
+
+	config DEFAULT_kmod-ath9k
+		bool
+
+	config DEFAULT_kmod-bridge
+		bool
+
+	config DEFAULT_kmod-button-hotplug
+		bool
+
+	config DEFAULT_kmod-crypto-aes
+		bool
+
+	config DEFAULT_kmod-crypto-cbc
+		bool
+
+	config DEFAULT_kmod-crypto-hw-geode
+		bool
+
+	config DEFAULT_kmod-crypto-ocf
+		bool
+
+	config DEFAULT_kmod-e100
+		bool
+
+	config DEFAULT_kmod-e1000
+		bool
+
+	config DEFAULT_kmod-e1000e
+		bool
+
+	config DEFAULT_kmod-ep80579-can
+		bool
+
+	config DEFAULT_kmod-ep80579-eth
+		bool
+
+	config DEFAULT_kmod-ep80579-misc
+		bool
+
+	config DEFAULT_kmod-fs-ext4
+		bool
+
+	config DEFAULT_kmod-hwmon-core
+		bool
+
+	config DEFAULT_kmod-hwmon-w83627hf
+		bool
+
+	config DEFAULT_kmod-ide-core
+		bool
+
+	config DEFAULT_kmod-ide-it821x
+		bool
+
+	config DEFAULT_kmod-input-core
+		bool
+
+	config DEFAULT_kmod-input-polldev
+		bool
+
+	config DEFAULT_kmod-ledtrig-gpio
+		bool
+
+	config DEFAULT_kmod-ledtrig-heartbeat
+		bool
+
+	config DEFAULT_kmod-ledtrig-netdev
+		bool
+
+	config DEFAULT_kmod-libphy
+		bool
+
+	config DEFAULT_kmod-llc
+		bool
+
+	config DEFAULT_kmod-natsemi
+		bool
+
+	config DEFAULT_kmod-ne2k-pci
+		bool
+
+	config DEFAULT_kmod-nf-nathelper
+		bool
+
+	config DEFAULT_kmod-pcnet32
+		bool
+
+	config DEFAULT_kmod-r6040
+		bool
+
+	config DEFAULT_kmod-r8169
+		bool
+
+	config DEFAULT_kmod-rdc321x-wdt
+		bool
+
+	config DEFAULT_kmod-rt61-pci
+		bool
+
+	config DEFAULT_kmod-rtc-core
+		bool
+
+	config DEFAULT_kmod-rtc-m48t86
+		bool
+
+	config DEFAULT_kmod-scsi-core
+		bool
+
+	config DEFAULT_kmod-sis900
+		bool
+
+	config DEFAULT_kmod-stp
+		bool
+
+	config DEFAULT_kmod-switch-ip17xx
+		bool
+
+	config DEFAULT_kmod-tg3
+		bool
+
+	config DEFAULT_kmod-usb-core
+		bool
+
+	config DEFAULT_kmod-usb-hid
+		bool
+
+	config DEFAULT_kmod-usb-ohci
+		bool
+
+	config DEFAULT_kmod-usb-storage
+		bool
+
+	config DEFAULT_kmod-usb-uhci
+		bool
+
+	config DEFAULT_kmod-usb2
+		bool
+
+	config DEFAULT_kmod-via-rhine
+		bool
+
+	config DEFAULT_kmod-via-velocity
+		bool
+
+	config DEFAULT_kmod-virtio-balloon
+		bool
+
+	config DEFAULT_kmod-virtio-net
+		bool
+
+	config DEFAULT_kmod-virtio-random
+		bool
+
+	config DEFAULT_kmod-xen-evtchn
+		bool
+
+	config DEFAULT_kmod-xen-fs
+		bool
+
+	config DEFAULT_kmod-xen-kbddev
+		bool
+
+	config DEFAULT_kmod-xen-netdev
+		bool
+
+	config DEFAULT_libc
+		bool
+
+	config DEFAULT_libgcc
+		bool
+
+	config DEFAULT_mtd
+		bool
+
+	config DEFAULT_netifd
+		bool
+
+	config DEFAULT_odhcp6c
+		bool
+
+	config DEFAULT_odhcpd
+		bool
+
+	config DEFAULT_opkg
+		bool
+
+	config DEFAULT_ppp
+		bool
+
+	config DEFAULT_ppp-mod-pppoe
+		bool
+
+	config DEFAULT_swconfig
+		bool
+
+	config DEFAULT_uci
+		bool
+
+	config DEFAULT_wpad-mini
+		bool
+
