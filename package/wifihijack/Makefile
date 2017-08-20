@@ -21,14 +21,14 @@ define Package/wifihijack/description
 endef
 
 define Build/Prepare
-    echo "Here is Build/Prepare"
-    mkdir -p $(PKG_BUILD_DIR)
-    $(CP) ./src/* $(PKG_BUILD_DIR)/
+	echo "Here is Build/Prepare"
+	mkdir -p $(PKG_BUILD_DIR)
+	$(CP) ./src/* $(PKG_BUILD_DIR)/
 endef
 
 define Package/bridge/install
-        $(INSTALL_DIR) $(1)/usr/sbin
-        $(INSTALL_BIN) $(PKG_BUILD_DIR)/wifihijack $(1)/usr/sbin/
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/wifihijack $(1)/usr/sbin/
 endef
 
 $(eval $(call BuildPackage,wifihijack))
