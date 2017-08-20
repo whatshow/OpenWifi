@@ -1,0 +1,18 @@
+Source-Makefile: package/wifihijack/Makefile
+Package: wifihijack
+Version: 1.0.1-1
+Depends: +libc +SSP_SUPPORT:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libuci
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Title: hijack wifi
+Maintainer: 
+Source: 
+Type: ipkg
+Description:     hijack wifi.
+
+@@
+
+
