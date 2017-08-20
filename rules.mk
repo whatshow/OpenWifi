@@ -237,8 +237,8 @@ export TARGET_CXX_NOCACHE
 export HOSTCC_NOCACHE
 
 ifneq ($(CONFIG_CCACHE),)
-  TARGET_CC:= ccache_cc
-  TARGET_CXX:= ccache_cxx
+  TARGET_CC:= ccache gcc
+  TARGET_CXX:= ccache g++
   HOSTCC:= ccache $(HOSTCC)
   HOSTCXX:= ccache $(HOSTCXX)
 endif
