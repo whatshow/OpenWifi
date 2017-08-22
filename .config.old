@@ -498,3 +498,8 @@ CONFIG_PACKAGE_jshn=y
 CONFIG_PACKAGE_libjson-script=y
 CONFIG_PACKAGE_uboot-envtools=y
 # CONFIG_IMAGEOPT is not set
+
+#
+# Utilities
+#
+CONFIG_PACKAGE_helloworld=m
